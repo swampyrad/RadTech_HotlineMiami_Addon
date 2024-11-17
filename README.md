@@ -8,13 +8,13 @@ for the Leather Armor.
 
 Loadout codes:
 
-- rch - Richard Mask: no abilities
-- tny - Tony Mask: fists deal extra damage
-- crl - Carl Mask: Power Drill does double damage 
-- grm - Graham Mask: gives a 25% speed boost
-- brn - Brandon Mask: gives a 50% speed boost
-- osc - Oscar Mask: adds a red monochrome filter
-- drl - Power Drill: Carl's trademark weapon, 
+- ![Thumbnail](https://github.com/swampyrad/RadTech_HotlineMiami_Addon/blob/main/sprites/RICHA0.png) rch - Richard Mask: no abilities
+- ![Thumbnail](https://github.com/swampyrad/RadTech_HotlineMiami_Addon/blob/main/sprites/TONYA0.png) tny - Tony Mask: fists deal extra damage
+- ![Thumbnail](https://github.com/swampyrad/RadTech_HotlineMiami_Addon/blob/main/sprites/CARLA0.png) crl - Carl Mask: Power Drill does double damage 
+- ![Thumbnail](https://github.com/swampyrad/RadTech_HotlineMiami_Addon/blob/main/sprites/GRHMA0.png) grm - Graham Mask: gives a 25% speed boost
+- ![Thumbnail](https://github.com/swampyrad/RadTech_HotlineMiami_Addon/blob/main/sprites/BRNDA0.png) brn - Brandon Mask: gives a 50% speed boost
+- ![Thumbnail](https://github.com/swampyrad/RadTech_HotlineMiami_Addon/blob/main/sprites/OSCRA0.png) osc - Oscar Mask: adds a red monochrome filter
+- ![Thumbnail](https://github.com/swampyrad/RadTech_HotlineMiami_Addon/blob/main/sprites/DRLPA0.png) drl - Power Drill: Carl's trademark weapon, 
       pulls in player on contact wth flesh
 
 (Currently WIP, more masks coming soon!)
