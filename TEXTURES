@@ -1,0 +1,66 @@
+//Jacket, masks and Power Drill sprites created by Swampyrad
+//Jacket and mask designs inspired by Hotline Miami by Devolver Digital
+//Doom Pistol hand sprite by id Software (used in Power Drill)
+
+//Jacket (leather jacket reskin)
+sprite JAKTA0,31,17{
+	offset 15,17
+	patch JAKTA0,0,0
+}
+
+//Richard (Rooster)
+sprite RICHA0, 19, 34{
+	offset 9,34
+	patch RICHA0,0,0
+}
+
+//Tony (Tiger)
+sprite TONYA0, 21, 24{
+	offset 10,24
+	patch TONYA0,0,0
+}
+
+//Carl (Grasshopper)
+sprite CARLA0, 21, 24{
+	offset 10,24
+	patch CARLA0,0,0
+}
+
+//Graham (Rabbit)
+//Richard (Rooster)
+sprite GRHMA0, 19, 36{
+	offset 9,37
+	patch GRHMA0,0,0
+}
+
+//Brandon (Panther)
+sprite BRNDA0, 21, 24{
+	offset 10,24
+	patch BRNDA0,0,0
+}
+
+//Oscar (Mole)
+sprite OSCRA0, 21, 21{
+	offset 10,21
+	patch OSCRA0,0,0
+}
+
+
+//Power Drill
+
+//pickup sprites
+sprite DRLPA0, 40, 20{
+    offset 20, 20
+    patch DRLPA0,0,0
+}
+
+//weapon sprites
+sprite DRILA0, 81, 88{
+    offset -118, -80
+    patch DRILA0,0,0
+}
+
+sprite DRILB0, 81, 88{
+    offset -118, -80
+    patch DRILB0,0,0
+}

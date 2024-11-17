@@ -1,0 +1,4 @@
+weapons/drillstart  drillon
+weapons/drillidle   drilloff
+weapons/drillfull   drilling
+weapons/drillhit    drilling    $pitch weapons/drillhit -6
