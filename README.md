@@ -1,5 +1,5 @@
 # RadTech_HotlineMiami_Addon
-A Hotline Miami-themed expansion for RadTech Items
+A Hotline Miami-themed expansion for [RadTech Items](https://github.com/swampyrad/RadTechItemPack)
 
 Adds wearable animal masks for use with 
 the GZDoom mod Hideous Destructor.
