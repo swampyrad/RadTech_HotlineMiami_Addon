@@ -97,6 +97,7 @@ class TonyFists:PowerDamage{
   default{
     inventory.maxamount 1;
     damagefactor "melee", 5;
+    damagefactor "bashing", 10;
     powerup.duration -999999;
     inventory.icon "";
   }
