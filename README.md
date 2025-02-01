@@ -9,7 +9,7 @@ for the Leather Armor.
 Loadout codes:
 
 - ![Thumbnail](https://github.com/swampyrad/RadTech_HotlineMiami_Addon/blob/main/sprites/RICHA0.png) rch - Richard Mask: no abilities
-- ![Thumbnail](https://github.com/swampyrad/RadTech_HotlineMiami_Addon/blob/main/sprites/TONYA0.png) tny - Tony Mask: fists deal extra damage
+- ![Thumbnail](https://github.com/swampyrad/RadTech_HotlineMiami_Addon/blob/main/sprites/TONYA0.png) tgr - Tony Mask: when unarmed, punches, kicks, and thrown weapons deal extra damage 
 - ![Thumbnail](https://github.com/swampyrad/RadTech_HotlineMiami_Addon/blob/main/sprites/CARLA0.png) crl - Carl Mask: Power Drill does double damage 
 - ![Thumbnail](https://github.com/swampyrad/RadTech_HotlineMiami_Addon/blob/main/sprites/GRHMA0.png) grm - Graham Mask: gives a 25% speed boost
 - ![Thumbnail](https://github.com/swampyrad/RadTech_HotlineMiami_Addon/blob/main/sprites/BRNDA0.png) brn - Brandon Mask: gives a 50% speed boost
