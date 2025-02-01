@@ -117,7 +117,7 @@ class TigerMask:HDPickup{
 
 		hdpickup.bulk 10;
 		tag "Tony Mask";
-		hdpickup.refid "tny";
+		hdpickup.refid "tgr";
 	}
 	override void DetachFromOwner(){
 		owner.A_TakeInventory("TigerMask");
