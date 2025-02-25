@@ -27,9 +27,8 @@ sprite CARLA0, 21, 24{
 }
 
 //Graham (Rabbit)
-//Richard (Rooster)
 sprite GRHMA0, 19, 36{
-	offset 9,37
+	offset 9,36
 	patch GRHMA0,0,0
 }
 
@@ -43,6 +42,12 @@ sprite BRNDA0, 21, 24{
 sprite OSCRA0, 21, 21{
 	offset 10,21
 	patch OSCRA0,0,0
+}
+
+//Suzie (Yellow Rabbit)
+sprite SUZIA0, 19, 36{
+	offset 9,36
+	patch SUZIA0,0,0
 }
 
 
