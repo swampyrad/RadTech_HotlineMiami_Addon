@@ -25,7 +25,7 @@ class WornSuzieMask:HDDamageHandler{
 		if(!owner.countinv("SuzieMask")){
 		    owner.A_GiveInventory("WornSuzieMask");
     }
-    if(currweap=="HDHandgun")owner.A_GiveInventory("SuzieDamage");
+    if(currweap is "HDHandgun")owner.A_GiveInventory("SuzieDamage");
 		A_SetBlend("01 00 00",0.8,16);
 		super.attachtoowner(owner);
 	}
@@ -62,16 +62,21 @@ class WornSuzieMask:HDDamageHandler{
 		
 		let hdp=hdplayerpawn(owner);
     
+    //check if "currweap" matches held weapon
+    //if not, set "currweap" to held weapon's class
     if (Owner.Player.ReadyWeapon 
         && Owner.Player.ReadyWeapon.GetParentClass() != currweap)
 		{
 			currweap = Owner.Player.ReadyWeapon.GetParentClass();
     }
     
+    //if held weapon's class inherits from "HDHandgun"
+    //give damage buff powerup
+    //else remove powerup
 		if(!countinv("SuzieDamage")
-	     &&currweap=="HDHandgun"
+	     &&(currweap is "HDHandgun")
 	    ){owner.A_GiveInventory("SuzieDamage");
-		}else if(currweap!="HDHandgun"
+		}else if (!(currweap is "HDHandgun")
 		  ){owner.A_TakeInventory("SuzieDamage",1);
 		}
 	}
@@ -82,6 +87,8 @@ class WornSuzieMask:HDDamageHandler{
 		int gzflags
 	){
 		bool am=hdflags&HDSB_AUTOMAP;
+		
+		//draws mask above worn armor HUD indicator
 		sb.drawimage(
 			"SUZIA0",
 			am?(11,157):(-85,-28),
