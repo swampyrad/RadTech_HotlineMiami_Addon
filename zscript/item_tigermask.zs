@@ -146,6 +146,7 @@ class TigerMask:HDPickup{
 			&&!other.findinventory("WornPantherMask")
 			&&!other.findinventory("WornGrasshopperMask")
 			&&!other.findinventory("WornRabbitMask")
+			&&!other.findinventory("WornSuzieMask")
 			&&!other.findinventory("wornradsuit")
 		){
 			wornlayer=STRIP_HMMASK;

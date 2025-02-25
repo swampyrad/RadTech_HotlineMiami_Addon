@@ -126,12 +126,13 @@ class MoleMask:HDPickup{
 		if(
 			other.player
 			&&other.player.cmd.buttons&BT_USE
-			&&!other.findinventory("WornRoosterMask")			
+			&&!other.findinventory("WornRoosterMask")
 			&&!other.findinventory("WornMoleMask")
 			&&!other.findinventory("WornTigerMask")
 			&&!other.findinventory("WornPantherMask")
 			&&!other.findinventory("WornGrasshopperMask")
 			&&!other.findinventory("WornRabbitMask")
+			&&!other.findinventory("WornSuzieMask")
 			&&!other.findinventory("wornradsuit")
 		){
 			wornlayer=STRIP_HMMASK;

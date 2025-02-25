@@ -128,6 +128,7 @@ class PantherMask:HDPickup{
 			&&!other.findinventory("WornMoleMask")
 			&&!other.findinventory("WornPantherMask")
 			&&!other.findinventory("WornRabbitMask")
+			&&!other.findinventory("WornSuzieMask")
 			&&!other.findinventory("WornGrasshopperMask")
 			&&!other.findinventory("wornradsuit")
 		){

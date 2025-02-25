@@ -1,9 +1,7 @@
 //-------------------------------------------------
-// "Do you like hurting other people?"
+// "Do you feel lucky? Well, do ya, punk?"
 //-------------------------------------------------
-const STRIP_HMMASK=1989;
-
-class WornRoosterMask:HDDamageHandler{
+class WornSuzieMask:HDDamageHandler{
 	default{
 		+nointeraction;+noblockmap;
 		+hdpickup.facecoverage
@@ -11,23 +9,29 @@ class WornRoosterMask:HDDamageHandler{
 		HDDamageHandler.priority 0;
 		HDPickup.wornlayer STRIP_HMMASK;
 		HDPickup.overlaypriority 150;
-		tag "Richard Mask";
+		tag "Suzie Mask";
 	}
 	states{spawn:TNT1 A 0;stop;}
 	override inventory createtossable(int amt){
-		let rrr=owner.findinventory("RoosterMask");
+		let rrr=owner.findinventory("SuzieMask");
 		if(rrr)owner.useinventory(rrr);else destroy();
 		return null;
 	}
+	
+	class<object> currweap;
 	override void attachtoowner(actor owner){
-		if(!owner.countinv("RoosterMask")){
-		    owner.A_GiveInventory("WornRoosterMask");
-		}
+	
+	  if(owner)currweap = owner.Player.ReadyWeapon.GetParentClass();
+		if(!owner.countinv("SuzieMask")){
+		    owner.A_GiveInventory("WornSuzieMask");
+    }
+    if(currweap=="HDHandgun")owner.A_GiveInventory("SuzieDamage");
 		A_SetBlend("01 00 00",0.8,16);
 		super.attachtoowner(owner);
 	}
 	override void DetachFromOwner(){
-		owner.A_TakeInventory("RoosterMask",1);
+		owner.A_TakeInventory("SuzieMask",1);
+		owner.A_TakeInventory("SuzieDamage",1);
 		owner.A_SetBlend("01 00 00",0.8,16);
 		super.DetachFromOwner();
 	}
@@ -53,7 +57,24 @@ class WornRoosterMask:HDDamageHandler{
 			true
 		);
 	}
-	
+	override void DoEffect(){
+		super.doeffect();
+		
+		let hdp=hdplayerpawn(owner);
+    
+    if (Owner.Player.ReadyWeapon 
+        && Owner.Player.ReadyWeapon.GetParentClass() != currweap)
+		{
+			currweap = Owner.Player.ReadyWeapon.GetParentClass();
+    }
+    
+		if(!countinv("SuzieDamage")
+	     &&currweap=="HDHandgun"
+	    ){owner.A_GiveInventory("SuzieDamage");
+		}else if(currweap!="HDHandgun"
+		  ){owner.A_TakeInventory("SuzieDamage",1);
+		}
+	}
 	override void DrawHudStuff(
 		hdstatusbar sb,
 		hdplayerpawn hpl,
@@ -62,48 +83,58 @@ class WornRoosterMask:HDDamageHandler{
 	){
 		bool am=hdflags&HDSB_AUTOMAP;
 		sb.drawimage(
-			"RICHA0",
+			"SUZIA0",
 			am?(11,157):(-85,-28),
 			am?sb.DI_TOPLEFT:
 			(sb.DI_SCREEN_CENTER_BOTTOM|sb.DI_ITEM_CENTER_BOTTOM)
 		);
 	}
-    
 }
 
-class RoosterMask:HDPickup{
+//wearer does extra damage with handguns
+class SuzieDamage:PowerDamage{
+  default{
+    inventory.maxamount 1;
+    damagefactor "piercing", 3;
+    powerup.duration -999999;
+    inventory.icon "";
+  }
+}
+
+class SuzieMask:HDPickup{
 	default{
 		//$Category "Gear/Hideous Destructor/Supplies"
-		//$Title "Richard Mask"
-		//$Sprite "RICHA0"
-        
-        -hdpickup.droptranslation
-        +HDPickup.NoRandomBackpackSpawn
-		inventory.pickupmessage "You got a...rooster mask?";
+		//$Title "Graham Mask"
+		//$Sprite "SUZIA0"
+
+    -hdpickup.droptranslation
+    +HDPickup.NoRandomBackpackSpawn
+		inventory.pickupmessage "You got a rabbit mask. This one looks different...";
 		inventory.pickupsound "weapons/pocket";
-		inventory.icon "RICHA0";
+		inventory.icon "SUZIA0";
 
 		hdpickup.bulk 10;
-		tag "Richard Mask";
-		hdpickup.refid "rch";
+		tag "Suzie Mask";
+		hdpickup.refid "suz";
 	}
 	override void DetachFromOwner(){
-		owner.A_TakeInventory("RoosterMask");
-		owner.A_TakeInventory("WornRoosterMask");
+		owner.A_TakeInventory("SuzieMask");
+		owner.A_TakeInventory("WornSuzieMask");
+		owner.A_TakeInventory("SuzieDamage");
 		target=owner;
 		super.DetachFromOwner();
 	}
 	override inventory CreateTossable(int amt){
 		if(
 			amount<2
-			&&owner.findinventory("WornRoosterMask")
+			&&owner.findinventory("WornSuzieMask")
 		){
 			owner.UseInventory(self);
 			return null;
 		}
 		return super.CreateTossable(amt);
 	}
-    override bool BeforePockets(actor other){
+	override bool BeforePockets(actor other){
 		//put on the armour right away
 		if(
 			other.player
@@ -111,10 +142,10 @@ class RoosterMask:HDPickup{
 			&&!other.findinventory("WornRoosterMask")
 			&&!other.findinventory("WornTigerMask")
 			&&!other.findinventory("WornMoleMask")
-			&&!other.findinventory("WornPantherMask")
-			&&!other.findinventory("WornGrasshopperMask")
 			&&!other.findinventory("WornRabbitMask")
 			&&!other.findinventory("WornSuzieMask")
+			&&!other.findinventory("WornPantherMask")
+			&&!other.findinventory("WornGrasshopperMask")
 			&&!other.findinventory("wornradsuit")
 		){
 			wornlayer=STRIP_HMMASK;
@@ -124,42 +155,46 @@ class RoosterMask:HDPickup{
 			if(intervening)return false;
 
 			let onr=HDPlayerPawn(other);
-			
-			other.A_GiveInventory("RoosterMask");
-			other.A_GiveInventory("WornRoosterMask");
+            
+			other.A_GiveInventory("SuzieMask");
+			other.A_GiveInventory("WornSuzieMask");
+			other.A_GiveInventory("SuzieDamage");
 			destroy();
 			return true;
 		}
 		return false;
 	}
 	override void DoEffect(){
-		bfitsinbackpack=(amount!=1||!owner||!owner.findinventory("WornRoosterMask"));
+		bfitsinbackpack=(amount!=1||!owner||!owner.findinventory("WornSuzieMask"));
+		
 		super.doeffect();
 	}
+	
 	states{
 	spawn:
-		RICH A 1;
-		RICH A -1{
+		SUZI A 1;
+		SUZI A -1{
 			if(!target)return;
 		}
 	use:
 		TNT1 A 0{
-		    let blockinv=HDWoundFixer.CheckCovered(self,CHECKCOV_ONLYFULL);
+			let blockinv=HDWoundFixer.CheckCovered(self,CHECKCOV_ONLYFULL);
 			if(blockinv){
+				//A_TakeOffFirst(blockinv.gettag());
 				Console.MidPrint(smallfont,"Something is in the way.");
 				A_Jump(256,"nope");
 				return;
 			}
 			let blockface=HDWoundFixer.CheckCovered(self,CHECKCOV_CHECKFACE);
-			if(blockface&&!countinv("WornRoosterMask")){
+			if(blockface&&!countinv("WornSuzieMask")){
 				Console.MidPrint(smallfont,"Take your current mask off first!");
 				A_Jump(256,"nope");
 				return;
 			}
 			
-			let owrm=WornRoosterMask(findinventory("WornRoosterMask"));
-			if(owrm){
-				if(!HDPlayerPawn.CheckStrip(self,owrm))return;
+			let owsm=WornSuzieMask(findinventory("WornSuzieMask"));
+			if(owsm){
+				if(!HDPlayerPawn.CheckStrip(self,owsm))return;
 			}else{
 				invoker.wornlayer=STRIP_HMMASK+1;
 				if(!HDPlayerPawn.CheckStrip(self,invoker)){
@@ -168,23 +203,18 @@ class RoosterMask:HDPickup{
 				}
 				invoker.wornlayer=0;
 			}
-			
-			//let onr=HDPlayerPawn(self);
-			if(!countinv("WornRoosterMask")){
-				A_SetBlend("01 00 00",0.8,16);//flashes black for a moment
-				A_GiveInventory("WornRoosterMask");
+
+			if(!countinv("WornSuzieMask")){
+			    A_SetBlend("01 00 00",0.8,16);//flashes black for a moment
+				A_GiveInventory("WornSuzieMask");
+				A_GiveInventory("SuzieDamage");
 			}else{
 				actor a;int b;
-				inventory wrs=findinventory("WornRoosterMask");
-				[b,a]=A_SpawnItemEx("RoosterMask",0,0,height*0.5,5,0,-8);
-				A_TakeInventory("WornRoosterMask");
+				inventory wrs=findinventory("WornSuzieMask");
+				[b,a]=A_SpawnItemEx("SuzieMask",0,0,height*0.5,5,0,-8);
+				A_TakeInventory("WornSuzieMask");
+				A_TakeInventory("SuzieDamage");
 			}
-			/*
-			if (player)
-			{
-				player.crouchfactor=min(player.crouchfactor,0.7);
-			}
-			*/
 		}fail;
 	}
 }
