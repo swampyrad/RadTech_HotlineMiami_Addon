@@ -20,6 +20,10 @@ class WornTigerMask:HDDamageHandler{
 	
 	string currweap;
 	override void attachtoowner(actor owner){
+	  //null check, avoids crashes 
+	  //if owner not initialized
+	  if(!owner)return; 
+	  
 	  if(owner)currweap = owner.Player.ReadyWeapon.GetClassName();
 		if(!owner.countinv("TigerMask")){
 		    owner.A_GiveInventory("WornTigerMask");

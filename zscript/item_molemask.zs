@@ -19,6 +19,10 @@ class WornMoleMask:HDDamageHandler{
 		return null;
 	}
 	override void attachtoowner(actor owner){
+	  //null check, avoids crashes 
+	  //if owner not initialized
+	  if(!owner)return; 
+	  
 		if(!owner.countinv("MoleMask")){
 		    owner.A_GiveInventory("WornMoleMask");
 		    owner.A_GiveInventory("MoleDarkness");

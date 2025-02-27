@@ -19,6 +19,10 @@ class WornRabbitMask:HDDamageHandler{
 	}
 	
 	override void attachtoowner(actor owner){
+	  //null check, avoids crashes 
+	  //if owner not initialized
+	  if(!owner)return; 
+	  
 		if(!owner.countinv("RabbitMask")){
 		    owner.A_GiveInventory("WornRabbitMask");
 		    owner.A_GiveInventory("RabbitSpeed");}

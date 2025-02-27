@@ -19,6 +19,10 @@ class WornPantherMask:HDDamageHandler{
 	}
 	
 	override void attachtoowner(actor owner){
+	  //null check, avoids crashes 
+	  //if owner not initialized
+	  if(!owner)return; 
+	  
 		if(!owner.countinv("PantherMask")){
 		    owner.A_GiveInventory("WornPantherMask");
 		    owner.A_GiveInventory("PantherSpeed");}

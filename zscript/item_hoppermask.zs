@@ -19,6 +19,10 @@ class WornGrasshopperMask:HDDamageHandler{
 		return null;
 	}
 	override void attachtoowner(actor owner){
+	  //null check, avoids crashes 
+	  //if owner not initialized
+	  if(!owner)return; 
+	  
 		if(!owner.countinv("GrasshopperMask")){
 		    owner.A_GiveInventory("WornGrasshopperMask");}
 		A_SetBlend("01 00 00",0.8,16);

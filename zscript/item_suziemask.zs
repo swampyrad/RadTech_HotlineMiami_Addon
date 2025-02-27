@@ -4,34 +4,60 @@
 class WornSuzieMask:HDDamageHandler{
 	default{
 		+nointeraction;+noblockmap;
-		+hdpickup.facecoverage
+		+hdpickup.facecoverage  //can't drink potions when worn
 		inventory.maxamount 1;inventory.amount 1;
 		HDDamageHandler.priority 0;
 		HDPickup.wornlayer STRIP_HMMASK;
 		HDPickup.overlaypriority 150;
 		tag "Suzie Mask";
 	}
+	
 	states{spawn:TNT1 A 0;stop;}
+	
 	override inventory createtossable(int amt){
 		let rrr=owner.findinventory("SuzieMask");
-		if(rrr)owner.useinventory(rrr);else destroy();
+		if(rrr)owner.useinventory(rrr);
+		else destroy();
 		return null;
 	}
 	
+	//tracks player's currently held weapon
 	class<object> currweap;
-	override void attachtoowner(actor owner){
 	
-	  if(owner)currweap = owner.Player.ReadyWeapon.GetParentClass();
+	//do this when putting on mask
+	override void attachtoowner(actor owner){
+	  //null check, avoids crashes 
+	  //if owner not initialized
+	  if(!owner)return; 
+    
+    //set currweap to owner's held weapon
+	  if(owner)
+	    currweap = owner.Player.ReadyWeapon.GetParentClass();
+	  
+	  //remove if mask not found in inventory
 		if(!owner.countinv("SuzieMask")){
 		    owner.A_GiveInventory("WornSuzieMask");
     }
-    if(currweap is "HDHandgun")owner.A_GiveInventory("SuzieDamage");
+    
+    //activate damage buff if holding a
+    //weapon that inherits from "HDHandgun"
+    //when mask is equipped
+    if(currweap is "HDHandgun")
+      owner.A_GiveInventory("SuzieDamage");
+    
+    //apply screen fade effect
 		A_SetBlend("01 00 00",0.8,16);
+		
 		super.attachtoowner(owner);
 	}
+	
+	//do this when taking mask off
 	override void DetachFromOwner(){
+	  //remove mask from inventory
 		owner.A_TakeInventory("SuzieMask",1);
+	  //remove damage buff powerup
 		owner.A_TakeInventory("SuzieDamage",1);
+	  //apply screen fade effect
 		owner.A_SetBlend("01 00 00",0.8,16);
 		super.DetachFromOwner();
 	}
@@ -40,7 +66,8 @@ class WornSuzieMask:HDDamageHandler{
 	override void DisplayOverlay(hdstatusbar sb,hdplayerpawn hpl){
 		if(
 			sb.blurred
-		)return;//if you're invisible, your mask is invisible too, right?
+		)return;//if you're invisible, your mask 
+		        //is invisible too, right?
 		
 		sb.SetSize(0,320,200);
 		sb.BeginHUD(forcescaled:true);
@@ -57,6 +84,7 @@ class WornSuzieMask:HDDamageHandler{
 			true
 		);
 	}
+	
 	override void DoEffect(){
 		super.doeffect();
 		
@@ -80,6 +108,9 @@ class WornSuzieMask:HDDamageHandler{
 		  ){owner.A_TakeInventory("SuzieDamage",1);
 		}
 	}
+	
+	//draws mask sprite above HUD
+	//armor durability indicator
 	override void DrawHudStuff(
 		hdstatusbar sb,
 		hdplayerpawn hpl,
@@ -98,6 +129,7 @@ class WornSuzieMask:HDDamageHandler{
 	}
 }
 
+//ability powerup given when mask is worn,
 //wearer does extra damage with handguns
 class SuzieDamage:PowerDamage{
   default{
@@ -108,6 +140,7 @@ class SuzieDamage:PowerDamage{
   }
 }
 
+//the actual mask item
 class SuzieMask:HDPickup{
 	default{
 		//$Category "Gear/Hideous Destructor/Supplies"
@@ -124,6 +157,7 @@ class SuzieMask:HDPickup{
 		tag "Suzie Mask";
 		hdpickup.refid "suz";
 	}
+	
 	override void DetachFromOwner(){
 		owner.A_TakeInventory("SuzieMask");
 		owner.A_TakeInventory("WornSuzieMask");
@@ -131,6 +165,7 @@ class SuzieMask:HDPickup{
 		target=owner;
 		super.DetachFromOwner();
 	}
+	
 	override inventory CreateTossable(int amt){
 		if(
 			amount<2
@@ -141,6 +176,7 @@ class SuzieMask:HDPickup{
 		}
 		return super.CreateTossable(amt);
 	}
+	
 	override bool BeforePockets(actor other){
 		//put on the armour right away
 		if(
@@ -171,6 +207,7 @@ class SuzieMask:HDPickup{
 		}
 		return false;
 	}
+	
 	override void DoEffect(){
 		bfitsinbackpack=(amount!=1||!owner||!owner.findinventory("WornSuzieMask"));
 		
